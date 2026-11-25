@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>GezyPraktik — Berbagi Praktik Baik Guru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f5; --surface:#ffffff; --surface2:#f4f7f9; --ink:#17242f; --muted:#5b6b78; --faint:#8496a3;
+  --line:#d9e2e8; --navy:#16324f; --navy2:#1e4468; --gold:#c9930a; --gold-bg:#fdf3d7;
+  --teal:#0e7a6d; --teal-bg:#e2f3f0; --green:#1d7a3a; --green-bg:#e4f3e8;
+  --amber:#9a6a00; --amber-bg:#fdf0d3; --red:#b3372e; --red-bg:#fbe9e7;
+  --radius:14px; --shadow:0 10px 30px rgba(22,50,79,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d151c; --surface:#16222c; --surface2:#1b2a36; --ink:#e8eff4; --muted:#a3b4c0; --faint:#71858f;
+    --line:#2a3d4b; --navy:#0f2438; --navy2:#1c3d5c; --gold:#e0aa1e; --gold-bg:#3a2f10;
+    --teal:#2fb3a1; --teal-bg:#12332e; --green:#4cc06d; --green-bg:#14301d;
+    --amber:#e5b84f; --amber-bg:#38300f; --red:#ef8a80; --red-bg:#3a1d1a;
+    --shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.55}
+button,[role="button"],select,summary,input:not([type="checkbox"]):not([type="radio"]),textarea{font-family:inherit}
+button{min-height:40px}
+a{color:var(--navy2)}
+@media (prefers-color-scheme: dark){a{color:#8fc1e8}}
+h1,h2,h3{line-height:1.2;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+.hidden{display:none !important}
+
+/* ---------- Header ---------- */
+header.top{position:sticky;top:0;z-index:60;background:var(--navy);color:#fff;box-shadow:0 2px 14px rgba(0,0,0,.25)}
+.top-in{display:flex;align-items:center;gap:14px;min-height:60px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;color:#fff;text-decoration:none;cursor:pointer}
+.brand .mark{width:36px;height:36px;border-radius:10px;background:var(--gold);color:#231a00;display:grid;place-items:center;font-size:19px;flex:none}
+.brand small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#bcd2e6}
+.proto-tag{font-size:11px;font-weight:700;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:3px 9px;border-radius:99px;color:#dcebf7}
+nav.mainnav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+nav.mainnav button{background:none;border:0;color:#cfe0ee;font-weight:600;font-size:14px;padding:8px 12px;border-radius:9px;cursor:pointer;min-height:40px}
+nav.mainnav button:hover{background:rgba(255,255,255,.1);color:#fff}
+nav.mainnav button.active{background:rgba(255,255,255,.16);color:#fff}
+.btn{border:0;border-radius:11px;padding:10px 18px;font-weight:700;font-size:14.5px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:44px;text-decoration:none}
+.btn-gold{background:var(--gold);color:#241a00}
+.btn-gold:hover{filter:brightness(1.07)}
+.btn-navy{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.btn-navy{background:var(--navy2)}}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--faint)}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-sm{padding:7px 13px;min-height:38px;font-size:13.5px;border-radius:9px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.userchip{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border-radius:99px;padding:4px 12px 4px 4px;color:#fff;font-weight:600;font-size:13.5px;cursor:pointer;border:0;min-height:40px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--gold);color:#241a00;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.avatar.lg{width:52px;height:52px;font-size:19px}
+.avatar.xl{width:72px;height:72px;font-size:27px}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--navy);color:#fff;padding:38px 0 46px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;border:56px solid rgba(201,147,10,.16);pointer-events:none}
+.hero h1{font-family:"Lora",serif;font-weight:600;font-size:clamp(27px,4.4vw,42px);max-width:640px;letter-spacing:-.01em}
+.hero h1 em{color:#f2c94c;font-style:italic}
+.hero p.sub{color:#c3d6e6;max-width:560px;margin:14px 0 22px;font-size:16px}
+.searchbar{display:flex;gap:10px;max-width:620px;flex-wrap:wrap;position:relative;z-index:2}
+.searchbar input{flex:1;min-width:220px;border:0;border-radius:12px;padding:13px 16px;font-size:15px;min-height:48px;color:#17242f;background:#fff}
+.hero-stats{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap;position:relative;z-index:2}
+.hero-stats b{display:block;font-size:21px}
+.hero-stats span{font-size:12.5px;color:#a9c2d8;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+
+/* ---------- Sections / filters ---------- */
+section.block{padding:30px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.sec-head h2{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.sec-head p{color:var(--muted);margin:0}
+.catrow{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:8px 15px;font-weight:600;font-size:13.5px;cursor:pointer;min-height:38px;display:inline-flex;align-items:center;gap:7px}
+.chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.chip.active{background:var(--navy2);border-color:#3d6a99}}
+.chip.soon{opacity:.55;cursor:not-allowed}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.filterrow{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:10px 0 20px}
+.filterrow select{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;font-size:14px;min-height:40px;font-weight:600}
+.filterrow .count{margin-left:auto;color:var(--muted);font-size:13.5px;font-weight:600}
+
+/* ---------- Cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px;padding-bottom:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(22,50,79,.05)}
+.card:hover{box-shadow:var(--shadow)}
+.cover{height:118px;position:relative;display:flex;align-items:flex-end;padding:14px;color:#fff;overflow:hidden}
+.cover .subj{position:absolute;top:12px;left:14px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.28);padding:4px 10px;border-radius:99px}
+.cover .big{font-size:34px;line-height:1;position:absolute;right:14px;top:12px;opacity:.9}
+.cover h3{font-size:17.5px;font-weight:700;line-height:1.3;position:relative;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.c-mat{background:linear-gradient(120deg,#17456e,#2b6ea8)}
+.c-ing{background:linear-gradient(120deg,#5b2a6e,#8b4fa8)}
+.c-ipa{background:linear-gradient(120deg,#0d5c50,#1d9c86)}
+.c-bin{background:linear-gradient(120deg,#7a3b12,#c06a1e)}
+.c-ips{background:linear-gradient(120deg,#6e1f2a,#b0404f)}
+.c-pjok{background:linear-gradient(120deg,#33550f,#6b9c1d)}
+.card-body{padding:15px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-body p.ex{color:var(--muted);font-size:14px;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.author{display:flex;align-items:center;gap:9px;font-size:13.5px}
+.author b{display:block;line-height:1.25}
+.author span{color:var(--muted);font-size:12.5px}
+.card-meta{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:11px;margin-top:auto;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.stars{color:#e3a008;font-size:14px;letter-spacing:1px;white-space:nowrap}
+.stars .n{color:var(--muted);letter-spacing:0;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:99px;letter-spacing:.02em}
+.b-terbit{background:var(--green-bg);color:var(--green)}
+.b-draf{background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.b-nilai{background:var(--amber-bg);color:var(--amber)}
+.b-sudah{background:var(--teal-bg);color:var(--teal)}
+.card .open{align-self:flex-start}
+
+/* ---------- How it works ---------- */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:14px 0 8px}
+.how .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.how .num{width:38px;height:38px;border-radius:12px;background:var(--gold-bg);color:var(--gold);display:grid;place-items:center;font-weight:800;font-size:17px;margin-bottom:12px}
+.how h3{font-size:16.5px;margin-bottom:6px}
+.how p{color:var(--muted);margin:0;font-size:14px}
+
+/* ---------- Detail ---------- */
+.crumb{font-size:13.5px;color:var(--muted);margin:22px 0 12px}
+.crumb button{background:none;border:0;color:var(--navy2);font-weight:700;cursor:pointer;padding:6px 4px;min-height:36px;font-size:13.5px}
+@media (prefers-color-scheme: dark){.crumb button{color:#8fc1e8}}
+.detail-head{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 2px 8px rgba(22,50,79,.05)}
+.detail-head h1{font-family:"Lora",serif;font-size:clamp(23px,3.4vw,32px);font-weight:600;margin:10px 0 12px}
+.detail-head .excerpt{color:var(--muted);font-size:16px;margin:0 0 18px;max-width:720px}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start;margin-top:22px}
+.article{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:8px 26px 20px}
+.article section{padding:18px 0 6px;border-bottom:1px solid var(--line)}
+.article section:last-child{border-bottom:0}
+.article h2{font-size:17px;font-weight:800;display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.article h2 .no{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font-size:13px;display:grid;place-items:center;flex:none}
+@media (prefers-color-scheme: dark){.article h2 .no{background:var(--navy2)}}
+.article p{color:var(--ink);margin:0 0 10px}
+.article ul{margin:0 0 10px;padding-left:20px}
+.article li{margin-bottom:4px}
+.side{display:flex;flex-direction:column;gap:16px;position:sticky;top:84px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.panel h3{font-size:15px;font-weight:800;margin-bottom:10px}
+.panel p{font-size:13.5px;color:var(--muted);margin:0 0 8px}
+.score-big{font-size:34px;font-weight:800;line-height:1}
+.rubric-row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.rubric-row:last-of-type{border-bottom:0}
+.rubric-row b{white-space:nowrap}
+.attach{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.attach:last-child{border-bottom:0}
+.attach .ic{width:36px;height:36px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-size:16px;flex:none}
+.attach small{display:block;color:var(--muted)}
+.attach a{font-weight:600;text-decoration:none}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 12px}
+.ba div{border-radius:12px;padding:14px;font-size:14px}
+.ba .before{background:var(--red-bg)}
+.ba .after{background:var(--green-bg)}
+.ba b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.ba .before b{color:var(--red)} .ba .after b{color:var(--green)}
+.ba .pct{font-size:24px;font-weight:800;display:block}
+
+/* stars input + reviews */
+.star-input{display:flex;gap:4px;margin:6px 0 4px}
+.star-input button{background:none;border:0;font-size:30px;line-height:1;color:var(--line);cursor:pointer;padding:4px;min-height:44px;min-width:44px}
+.star-input button.on{color:#e3a008}
+.review{border-top:1px solid var(--line);padding:14px 0}
+.review:first-of-type{border-top:0}
+.review .who{display:flex;gap:9px;align-items:center;margin-bottom:5px}
+.review .who b{font-size:14px}
+.review .who span{font-size:12.5px;color:var(--muted)}
+.review p{margin:0;font-size:14.5px}
+textarea.ta,input.in,select.in{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-size:14.5px;background:var(--surface);color:var(--ink);min-height:44px}
+textarea.ta:focus,input.in:focus,select.in:focus{outline:2px solid var(--gold);outline-offset:0;border-color:transparent}
+label.fl{display:block;font-weight:700;font-size:13.5px;margin:0 0 6px}
+label.fl small{font-weight:500;color:var(--muted)}
+.fgroup{margin-bottom:15px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:5px}
+.notice{border-radius:12px;padding:13px 15px;font-size:14px;margin-bottom:14px}
+.notice.blue{background:var(--teal-bg);color:var(--ink)}
+.notice.gold{background:var(--gold-bg)}
+
+/* ---------- Wizard ---------- */
+.wiz-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:24px 0 4px}
+.wiz-head h1{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.steps{display:flex;gap:0;margin:18px 0 22px;overflow-x:auto;padding-bottom:4px}
+.stepdot{flex:1;min-width:104px;text-align:center;position:relative;padding-top:2px}
+.stepdot::before{content:"";position:absolute;top:17px;left:-50%;width:100%;height:3px;background:var(--line)}
+.stepdot:first-child::before{display:none}
+.stepdot.done::before,.stepdot.now::before{background:var(--teal)}
+.stepdot .ball{width:34px;height:34px;border-radius:50%;background:var(--surface);border:2.5px solid var(--line);display:grid;place-items:center;margin:0 auto 6px;font-weight:800;font-size:13.5px;position:relative;z-index:1;color:var(--muted)}
+.stepdot.now .ball{border-color:var(--teal);color:var(--teal);background:var(--teal-bg)}
+.stepdot.done .ball{background:var(--teal);border-color:var(--teal);color:#fff}
+.stepdot span{font-size:12px;font-weight:700;color:var(--muted);display:block;line-height:1.3;padding:0 4px}
+.stepdot.now span{color:var(--ink)}
+.wiz-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 2px 8px rgba(22,50,79,.05)}
+.wiz-card h2{font-size:19px;margin-bottom:4px}
+.wiz-card .sub{color:var(--muted);margin:0 0 20px;font-size:14px}
+.wiz-nav{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.wiz-nav .sp{flex:1}
+.upload{border:2px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);font-size:14px;background:var(--surface2)}
+.upload b{color:var(--ink)}
+.progressline{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.progressline i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .3s}
+
+/* ---------- Tables / lists ---------- */
+.listcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.lrow{display:flex;gap:14px;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.lrow:last-child{border-bottom:0}
+.lrow .grow{flex:1;min-width:220px}
+.lrow h3{font-size:16px;margin-bottom:3px}
+.lrow p{margin:0;color:var(--muted);font-size:13.5px}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:18px 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:17px}
+.stat b{font-size:27px;display:block;line-height:1.1}
+.stat span{color:var(--muted);font-size:13px;font-weight:600}
+input[type=range]{width:100%;accent-color:var(--teal);min-height:36px}
+
+/* ---------- Modal / toast ---------- */
+.overlay{position:fixed;inset:0;background:rgba(10,22,33,.62);z-index:100;display:grid;place-items:end center;padding:0}
+@media(min-width:640px){.overlay{place-items:center;padding:20px}}
+.modal{background:var(--surface);width:100%;max-width:480px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:26px;box-shadow:var(--shadow)}
+@media(min-width:640px){.modal{border-radius:18px}}
+.modal h2{font-size:21px;margin-bottom:4px}
+.modal .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+.modal .x{float:right;background:var(--surface2);border:0;width:38px;height:38px;border-radius:10px;font-size:17px;cursor:pointer;color:var(--ink)}
+.tabs{display:flex;background:var(--surface2);border-radius:11px;padding:4px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:none;font-weight:700;padding:9px;border-radius:8px;cursor:pointer;color:var(--muted);min-height:40px;font-size:14.5px}
+.tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:13px 20px;border-radius:12px;font-weight:600;font-size:14.5px;z-index:200;box-shadow:var(--shadow);opacity:0;transition:.3s;max-width:92vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+footer.site{margin-top:44px;background:var(--navy);color:#b9cfdf;padding:28px 0 34px;font-size:13.5px}
+footer.site b{color:#fff}
+.emptybox{background:var(--surface);border:1.5px dashed var(--line);border-radius:var(--radius);padding:34px;text-align:center;color:var(--muted)}
+@media(max-width:860px){
+  .detail-grid{grid-template-columns:1fr}
+  .side{position:static}
+  .ba{grid-template-columns:1fr}
+  .f2{grid-template-columns:1fr}
+  nav.mainnav{order:3;width:100%}
+  .article{padding:8px 18px 16px}
+  .detail-head{padding:20px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;scroll-behavior:auto !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" onclick="go('home')">
+      <span class="mark">✎</span>
+      <span>GezyPraktik<small>Berbagi Praktik Baik</small></span>
+    </a>
+    <span class="proto-tag">PROTOTIPE</span>
+    <nav class="mainnav" id="mainnav">
+      <button data-nav="home" class="active" onclick="go('home')">Jelajahi</button>
+      <button data-nav="dashboard" onclick="go('dashboard')">Praktik Saya</button>
+      <button data-nav="asesor" onclick="go('asesor')">Antrean Asesor</button>
+    </nav>
+    <span id="autharea"></span>
+  </div>
+</header>
+
+<!-- ================= HOME ================= -->
+<div id="view-home">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Praktik baik guru, <em>ditulis oleh guru</em>, untuk guru lain.</h1>
+      <p class="sub">Temukan cara mengajar yang sudah terbukti di kelas nyata — lengkap dengan modul ajar, LKPD, bukti hasil, dan refleksinya. Tulis praktik Anda, langsung terbit, lalu dinilai asesor dan diapresiasi komunitas.</p>
+      <div class="searchbar">
+        <input id="search" type="search" placeholder="Cari judul, strategi, mata pelajaran…" oninput="renderCards()" aria-label="Cari praktik baik">
+        <button class="btn btn-gold" onclick="document.getElementById('galeri').scrollIntoView({behavior:'smooth'})">Cari Praktik</button>
+        <button class="btn btn-white" onclick="startCreate()">+ Tulis Praktik Baik</button>
+      </div>
+      <div class="hero-stats">
+        <div><b id="st-total">0</b><span>Praktik terbit</span></div>
+        <div><b id="st-guru">0</b><span>Guru penulis</span></div>
+        <div><b id="st-nilai">0</b><span>Sudah dinilai asesor</span></div>
+        <div><b id="st-ulasan">0</b><span>Ulasan komunitas</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="block" id="galeri">
+      <div class="sec-head"><h2>Jelajahi Praktik Baik</h2><p>· kategori Guru</p></div>
+      <div class="catrow" role="group" aria-label="Kategori penulis">
+        <button class="chip active"><span class="dot"></span>Guru</button>
+        <button class="chip soon" onclick="toast('Kategori Kepala Sekolah menyusul setelah kategori Guru berjalan.')">Kepala Sekolah · segera</button>
+        <button class="chip soon" onclick="toast('Kategori Pengawas menyusul setelah kategori Guru berjalan.')">Pengawas · segera</button>
+        <button class="chip soon" onclick="toast('Kategori Tenaga Kependidikan menyusul setelah kategori Guru berjalan.')">Tenaga Kependidikan · segera</button>
+      </div>
+      <div class="filterrow">
+        <select id="f-mapel" onchange="renderCards()" aria-label="Filter mata pelajaran">
+          <option value="">Semua mata pelajaran</option>
+        </select>
+        <select id="f-jenjang" onchange="renderCards()" aria-label="Filter jenjang">
+          <option value="">Semua jenjang</option><option>SD</option><option>SMP</option><option>SMA</option><option>SMK</option>
+        </select>
+        <select id="f-sort" onchange="renderCards()" aria-label="Urutkan">
+          <option value="baru">Terbaru</option>
+          <option value="bintang">Bintang tertinggi</option>
+          <option value="asesor">Nilai asesor tertinggi</option>
+        </select>
+        <span class="count" id="card-count"></span>
+      </div>
+      <div class="grid" id="cards"></div>
+      <div class="emptybox hidden" id="cards-empty">Belum ada praktik yang cocok dengan pencarian ini. Coba kata kunci atau filter lain.</div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head"><h2>Cara kerjanya</h2></div>
+      <div class="how">
+        <div class="step"><div class="num">1</div><h3>Tulis lewat panduan 6 langkah</h3><p>28 butir bahan praktik baik Guru dikelompokkan jadi 6 langkah pendek. Bisa disimpan sebagai draf dan dilanjutkan kapan saja.</p></div>
+        <div class="step"><div class="num">2</div><h3>Langsung terbit</h3><p>Begitu selesai, praktik Anda terbit dan dapat tautan halaman sendiri untuk dibagikan ke komunitas, MGMP, atau grup sekolah.</p></div>
+        <div class="step"><div class="num">3</div><h3>Dinilai asesor, diapresiasi komunitas</h3><p>Asesor menilai dengan rubrik 4 aspek dan memberi umpan balik. Pengunjung yang masuk dengan email memberi bintang dan ulasan.</p></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= DETAIL ================= -->
+<div id="view-detail" class="hidden">
+  <div class="wrap">
+    <div class="crumb"><button onclick="go('home')">← Kembali ke Jelajahi</button></div>
+    <div id="detail-body"></div>
+  </div>
+</div>
+
+<!-- ================= CREATE / WIZARD ================= -->
+<div id="view-create" class="hidden">
+  <div class="wrap">
+    <div class="wiz-head">
+      <h1>Tulis Praktik Baik — Guru</h1>
+      <span class="badge b-nilai">28 butir · 6 langkah</span>
+      <span style="flex:1"></span>
+      <button class="btn btn-ghost btn-sm" onclick="saveDraft()">Simpan sebagai draf</button>
+      <button class="btn btn-ghost btn-sm" onclick="go('dashboard')">Tutup</button>
+    </div>
+    <div class="progressline" aria-hidden="true"><i id="wiz-progress" style="width:16%"></i></div>
+    <div class="steps" id="wiz-steps"></div>
+    <div class="wiz-card" id="wiz-body"></div>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="view-dashboard" class="hidden">
+  <div class="wrap">
+    <div class="wiz-head">
+      <h1>Praktik Saya</h1>
+      <span style="flex:1"></span>
+      <button class="btn btn-gold" onclick="startCreate()">+ Tulis Praktik Baru</button>
+    </div>
+    <div id="dash-body"></div>
+  </div>
+</div>
+
+<!-- ================= ASESOR ================= -->
+<div id="view-asesor" class="hidden">
+  <div class="wrap">
+    <div class="wiz-head"><h1>Antrean Penilaian Asesor</h1><span class="badge b-terbit">Peran: Asesor</span></div>
+    <p style="color:var(--muted);margin:0 0 6px">Praktik di GezyPraktik <b>sudah terbit</b> sebelum dinilai. Tugas asesor: menilai dengan rubrik, memberi umpan balik, dan menandai praktik yang perlu perbaikan.</p>
+    <div class="statgrid">
+      <div class="stat"><b id="as-antre">0</b><span>Menunggu dinilai</span></div>
+      <div class="stat"><b id="as-selesai">0</b><span>Sudah Anda nilai</span></div>
+      <div class="stat"><b>4 aspek</b><span>Rubrik · skala 1–4</span></div>
+      <div class="stat"><b id="as-rata">–</b><span>Rata-rata nilai Anda</span></div>
+    </div>
+    <div class="listcard" id="asesor-list"></div>
+    <div id="asesor-panel"></div>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <b>GezyPraktik</b> — wadah berbagi praktik baik guru. Praktik langsung terbit, dinilai asesor, dan diapresiasi komunitas.<br>
+    Prototipe tampilan · Kategori aktif: Guru · Kepala Sekolah, Pengawas, dan Tenaga Kependidikan menyusul.
+  </div>
+</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+<div id="auth-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Masuk atau daftar">
+  <div class="modal">
+    <button class="x" onclick="closeAuth()" aria-label="Tutup">✕</button>
+    <h2 id="auth-title">Masuk ke GezyPraktik</h2>
+    <p class="sub">Masuk diperlukan untuk menulis praktik, memberi bintang, dan menulis ulasan.</p>
+    <div class="tabs">
+      <button id="tab-masuk" class="on" onclick="authTab('masuk')">Masuk</button>
+      <button id="tab-daftar" onclick="authTab('daftar')">Daftar baru</button>
+    </div>
+
+    <form id="form-masuk" onsubmit="doLogin(event)">
+      <div class="fgroup"><label class="fl" for="li-email">Email</label><input class="in" id="li-email" type="email" required placeholder="nama@sekolah.sch.id"></div>
+      <div class="fgroup"><label class="fl" for="li-pass">Kata sandi</label><input class="in" id="li-pass" type="password" required placeholder="••••••••"></div>
+      <button class="btn btn-navy" style="width:100%" type="submit">Masuk</button>
+      <p class="hint">Di prototipe ini, email apa pun bisa dipakai untuk masuk sebagai contoh pengguna.</p>
+    </form>
+
+    <form id="form-daftar" class="hidden" onsubmit="doRegister(event)">
+      <div class="fgroup"><label class="fl" for="rg-nama">Nama lengkap <small>(dengan gelar bila ada)</small></label><input class="in" id="rg-nama" required placeholder="cth. Sari Wulandari, S.Pd."></div>
+      <div class="fgroup"><label class="fl" for="rg-email">Email</label><input class="in" id="rg-email" type="email" required placeholder="nama@sekolah.sch.id"></div>
+      <div class="f2">
+        <div class="fgroup"><label class="fl" for="rg-nip">NIP <small>(bila ada)</small></label><input class="in" id="rg-nip" inputmode="numeric" placeholder="1979xxxxxxxxxxxx"></div>
+        <div class="fgroup"><label class="fl" for="rg-wa">No. Telp / WA</label><input class="in" id="rg-wa" type="tel" required placeholder="08xxxxxxxxxx"></div>
+      </div>
+      <div class="fgroup"><label class="fl" for="rg-instansi">Instansi / Sekolah</label><input class="in" id="rg-instansi" required placeholder="cth. SMPN 1 Punggur"></div>
+      <div class="fgroup"><label class="fl" for="rg-status">Status</label>
+        <select class="in" id="rg-status" required>
+          <option value="">— Pilih status —</option>
+          <option>Guru</option><option>Kepala Sekolah</option><option>Pengawas</option><option>Siswa</option><option>Umum</option>
+        </select>
+      </div>
+      <div class="fgroup"><label class="fl" for="rg-pass">Kata sandi</label><input class="in" id="rg-pass" type="password" required placeholder="Minimal 8 karakter"></div>
+      <button class="btn btn-gold" style="width:100%" type="submit">Daftar &amp; Masuk</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+/* ==================== DATA CONTOH (prototipe) ==================== */
+var PRACTICES = [
+ { id:1, judul:"Menandai K: Kebiasaan Memeriksa Jawaban Sendiri pada Soal Bilangan Bulat", mapel:"Matematika", jenjang:"SMP", kelas:"VII",
+   penulis:"Gunanto, S.Pd.", instansi:"SMPN 1 Punggur", cover:"c-mat", ikon:"∑",
+   ringkas:"Murid terbiasa salah salin angka dan tidak pernah memeriksa ulang jawabannya. Dengan tanda K (periksa Kembali) di setiap langkah, kesalahan hitung turun drastis dalam 4 pertemuan.",
+   masalah:"Pada ulangan harian bilangan bulat, 62% kesalahan murid bukan karena tidak paham konsep, melainkan salah salin angka dan tidak memeriksa ulang. Murid menganggap selesai berarti benar.",
+   tujuan:"Membiasakan murid memeriksa kembali setiap langkah pengerjaan soal melalui penanda visual sederhana, sehingga kesalahan teknis menurun dan murid lebih percaya diri.",
+   tantangan:["Murid merasa memeriksa ulang membuang waktu","Kebiasaan lama: menulis jawaban sekali jalan tanpa jeda","Waktu pelajaran terbatas untuk latihan tambahan"],
+   strategi:"Setiap murid wajib menulis huruf K kecil di akhir setiap langkah hitung setelah memeriksanya. Guru mencontohkan dengan think-aloud di papan tulis, lalu murid saling memeriksa (peer-check) sebelum jawaban dikumpulkan.",
+   inovasi:"Penanda satu huruf yang murah dan konsisten — tanpa alat khusus, tanpa aplikasi. Huruf K menjadi sinyal berhenti sejenak dan membaca ulang soal.",
+   media:"Papan tulis, lembar kerja dengan kolom K, kartu soal berjenjang.",
+   teknologi:"Dokumentasi foto lembar kerja diunggah ke grup kelas; kuis singkat 5 soal untuk pemanasan di awal pertemuan.",
+   langkah:["Guru mendemonstrasikan satu soal sambil berpikir keras (think-aloud) dan menandai K di tiap langkah","Murid berlatih berpasangan: satu mengerjakan, satu memeriksa dan membubuhkan K","Latihan mandiri dengan kartu soal berjenjang","Refleksi kelas: menghitung bersama berapa kesalahan yang tertangkap tanda K"],
+   lampiran:[["Modul Ajar Bilangan Bulat.pdf","PDF · 1,2 MB"],["LKPD Tanda K.pdf","PDF · 640 KB"],["Instrumen Asesmen Formatif.docx","DOCX · 210 KB"],["Video pelaksanaan (YouTube)","Tautan · 6 menit"]],
+   sebelum:"31%", sebelumLabel:"ketuntasan ulangan harian", sesudah:"78%", sesudahLabel:"ketuntasan setelah 4 pertemuan",
+   dampak:"Murid mulai memeriksa tanpa disuruh; beberapa murid membuat tanda versinya sendiri. Kesalahan salah salin turun dari 21 kasus menjadi 5 kasus per ulangan.",
+   refleksi:"Kekuatan praktik ini ada pada kesederhanaannya. Kelemahannya, murid cepat bosan bila tanda K hanya jadi formalitas — perlu variasi tantangan soal agar pemeriksaan tetap bermakna.",
+   tindakLanjut:"Menerapkan tanda K pada materi persamaan linear dan membagikan praktik ini di MGMP Matematika kabupaten.",
+   replikasi:"Sangat mudah direplikasi di semua mata pelajaran hitungan; cukup satu kesepakatan kelas dan contoh konsisten dari guru selama dua minggu pertama.",
+   tanggal:"12 Nov 2026", asesor:{skor:[4,3,4,4], oleh:"Dr. Hj. Ratna Sari, M.Pd. — Pengawas Pembina", catatan:"Masalah diidentifikasi dari data nyata, bukan asumsi. Bukti sebelum–sesudah jelas. Perlu ditambah contoh lembar kerja murid yang gagal agar pembaca melihat proses perbaikannya.", tgl:"18 Nov 2026"},
+   bintang:4.8, reviews:[
+     {nama:"Helmi Wijayanti, S.Pd.", status:"Guru", instansi:"SMPN 1 Punggur", bintang:5, teks:"Sederhana tapi kena. Saya adaptasi untuk Bahasa Inggris — tanda K jadi tanda C (check). Murid saya mulai membaca ulang instruksinya.", tgl:"19 Nov 2026"},
+     {nama:"Bambang Sutrisno, M.Pd.", status:"Kepala Sekolah", instansi:"SMPN 2 Kotagajah", bintang:5, teks:"Bukti sebelum–sesudahnya meyakinkan. Cocok dibagikan di forum kepala sekolah sebagai contoh praktik murah berdampak besar.", tgl:"20 Nov 2026"},
+     {nama:"Dewi Anggraini", status:"Guru", instansi:"SMP Muhammadiyah Metro", bintang:4, teks:"Sudah saya coba dua pertemuan. Tantangannya menjaga agar tanda K tidak sekadar dicoret asal. Penjelasan di bagian refleksi sangat membantu.", tgl:"21 Nov 2026"}]},
+ { id:2, judul:"Membaca Nyaring Bergilir Membuat Kelas Berani Berbicara Bahasa Inggris", mapel:"Bahasa Inggris", jenjang:"SMP", kelas:"IX",
+   penulis:"Helmi Wijayanti, S.Pd.", instansi:"SMPN 1 Punggur", cover:"c-ing", ikon:"Aa",
+   ringkas:"Murid kelas IX diam total saat diminta berbicara. Membaca nyaring bergilir dalam kelompok kecil selama 10 menit tiap pertemuan mengubah keberanian mereka dalam 6 minggu.",
+   masalah:"Dari 32 murid, hanya 3 yang berani menjawab lisan. Murid takut salah ucap dan ditertawakan teman.",
+   tujuan:"Meningkatkan keberanian dan kelancaran berbicara melalui latihan lisan berisiko rendah secara rutin.",
+   tantangan:["Rasa malu dan takut diejek","Pengucapan yang sangat beragam","Waktu bicara per murid sangat sedikit di kelas besar"],
+   strategi:"Kelompok 4 orang membaca teks descriptive bergiliran, satu paragraf satu murid, lalu satu kalimat pendapat pribadi. Teman memberi satu pujian spesifik sebelum koreksi.",
+   inovasi:"Aturan 'pujian dulu, koreksi kemudian' dan kalimat pendapat wajib satu kalimat — kecil, tapi mengubah suasana kelas.",
+   media:"Teks descriptive tentang tempat wisata Lampung, kartu peran pembaca, daftar frasa bantuan di dinding kelas.",
+   teknologi:"Rekaman suara murid di ponsel guru untuk memantau kemajuan pengucapan dari minggu ke minggu.",
+   langkah:["Guru memodelkan membaca nyaring satu paragraf","Kelompok membaca bergilir, guru berkeliling memberi frasa bantuan","Setiap murid menyampaikan satu kalimat pendapat","Rekaman pembanding minggu pertama dan keenam diputar anonim untuk refleksi"],
+   lampiran:[["RPP Descriptive Text.pdf","PDF · 980 KB"],["Kartu Peran Pembaca.pdf","PDF · 320 KB"],["Rubrik Penilaian Speaking.docx","DOCX · 150 KB"]],
+   sebelum:"3 murid", sebelumLabel:"berani bicara dari 32 murid", sesudah:"24 murid", sesudahLabel:"berani bicara dari 32 murid",
+   dampak:"Rata-rata nilai speaking naik dari 61 menjadi 79. Murid yang semula diam total mulai mengajukan diri membaca pertama.",
+   refleksi:"Kunci keberhasilan adalah konsistensi 10 menit, bukan durasi panjang. Kelompok harus diacak ulang tiap dua minggu agar tidak terbentuk kelompok 'berani' dan 'diam'.",
+   tindakLanjut:"Melanjutkan ke tahap retelling dengan kata sendiri pada semester genap.",
+   replikasi:"Dapat dipakai untuk teks narrative dan recount; cocok juga untuk latihan membaca nyaring Bahasa Indonesia.",
+   tanggal:"8 Nov 2026", asesor:null,
+   bintang:4.6, reviews:[
+     {nama:"Siti Maryam, S.Pd.", status:"Guru", instansi:"SMPN 3 Terbanggi Besar", bintang:5, teks:"Aturan pujian dulu itu yang paling berharga. Kelas saya juga langsung berubah suasananya.", tgl:"15 Nov 2026"},
+     {nama:"Rizky Pratama", status:"Siswa", instansi:"SMPN 1 Punggur", bintang:4, teks:"Awalnya malu, tapi karena berkelompok jadi tidak terlalu tegang. Sekarang berani tampil.", tgl:"17 Nov 2026"}]},
+ { id:3, judul:"Praktikum Mini Dapur: Memahami Perubahan Wujud Benda Tanpa Laboratorium", mapel:"IPA", jenjang:"SMP", kelas:"VII",
+   penulis:"Agus Salim, S.Pd.", instansi:"SMPN 4 Seputih Raman", cover:"c-ipa", ikon:"⚗",
+   ringkas:"Sekolah tanpa laboratorium bukan alasan. Es batu, lilin, dan sendok dari dapur cukup untuk membuktikan mencair, membeku, menguap, dan mengembun dalam satu pertemuan.",
+   masalah:"Konsep perubahan wujud diajarkan hafalan dari buku karena sekolah tidak memiliki laboratorium; hasil tes konsep hanya 48% tuntas.",
+   tujuan:"Murid membuktikan sendiri enam perubahan wujud melalui praktikum sederhana berbahan dapur.",
+   tantangan:["Tidak ada laboratorium dan alat praktikum","Kekhawatiran keselamatan memakai api lilin","Waktu menyiapkan bahan untuk 8 kelompok"],
+   strategi:"Stasiun belajar: 4 meja percobaan, tiap kelompok berputar 12 menit per stasiun dan mencatat pengamatan pada tabel prediksi–pengamatan–kesimpulan.",
+   inovasi:"Tabel prediksi sebelum percobaan — murid yang prediksinya salah justru paling antusias mencari tahu penyebabnya.",
+   media:"Es batu, lilin, sendok logam, gelas plastik, air panas dari termos, LKPD tabel prediksi.",
+   teknologi:"Foto hasil pengamatan tiap kelompok ditayangkan lewat proyektor untuk diskusi kelas.",
+   langkah:["Murid menulis prediksi di LKPD","Rotasi 4 stasiun percobaan","Diskusi kelas membandingkan prediksi dan pengamatan","Kuis keluar: menuliskan satu contoh perubahan wujud di rumah"],
+   lampiran:[["LKPD Perubahan Wujud.pdf","PDF · 540 KB"],["Modul Ajar IPA.pdf","PDF · 1,1 MB"],["Foto Dokumentasi Kegiatan.pdf","PDF · 2,3 MB"]],
+   sebelum:"48%", sebelumLabel:"ketuntasan tes konsep", sesudah:"86%", sesudahLabel:"ketuntasan tes konsep",
+   dampak:"Murid membawa contoh dari rumah secara sukarela di pertemuan berikutnya; konsep menempel karena dialami, bukan dihafal.",
+   refleksi:"Pengelolaan waktu rotasi adalah titik kritis. Timer yang terlihat semua murid sangat membantu. Api lilin diganti lampu spiritus kecil untuk keamanan.",
+   tindakLanjut:"Menyusun paket praktikum dapur untuk materi suhu dan kalor.",
+   replikasi:"Bahan tersedia di semua dapur sekolah; biaya per kelas di bawah Rp50.000.",
+   tanggal:"2 Nov 2026", asesor:{skor:[4,4,3,4], oleh:"Drs. Joko Prasetyo, M.Si. — Asesor MGMP IPA", catatan:"Kreativitas memanfaatkan keterbatasan patut dicontoh. Saran: tambahkan data hasil LKPD murid sebagai lampiran agar dampaknya lebih terverifikasi.", tgl:"9 Nov 2026"},
+   bintang:4.9, reviews:[
+     {nama:"Fitri Handayani, S.Pd.", status:"Guru", instansi:"SDN 2 Punggur", bintang:5, teks:"Saya pakai versi SD-nya untuk kelas 5. Tabel prediksinya bekerja luar biasa.", tgl:"11 Nov 2026"}]},
+ { id:4, judul:"Sudut Baca 15 Menit: Menumbuhkan Minat Baca Lewat Pilihan Bebas", mapel:"Bahasa Indonesia", jenjang:"SMP", kelas:"VIII",
+   penulis:"Sri Wahyuni, S.Pd.", instansi:"SMPN 1 Punggur", cover:"c-bin", ikon:"¶",
+   ringkas:"Alih-alih memaksa satu buku untuk semua, murid memilih bacaan bebas 15 menit di awal pelajaran dan mencatat satu kalimat berkesan. Kunjungan perpustakaan naik tiga kali lipat.",
+   masalah:"Survei awal: 70% murid tidak membaca buku apa pun di luar buku pelajaran dalam sebulan terakhir.",
+   tujuan:"Menumbuhkan kebiasaan membaca melalui pilihan bebas dan rutinitas pendek yang konsisten.",
+   tantangan:["Koleksi buku kelas sangat terbatas","Murid menganggap membaca sebagai tugas, bukan kesenangan","Godaan ponsel di jam istirahat"],
+   strategi:"Sudut baca kelas berisi sumbangan buku bergilir antar kelas; 15 menit membaca bebas setiap pertemuan Bahasa Indonesia; jurnal satu kalimat berkesan.",
+   inovasi:"Jurnal satu kalimat — bukan ringkasan. Beban rendah, tetapi memaksa murid memproses bacaan.",
+   media:"Sudut baca kelas, jurnal kalimat berkesan, daftar rekomendasi dari murid untuk murid.",
+   teknologi:"Katalog sederhana sudut baca dicatat di spreadsheet kelas yang dikelola piket.",
+   langkah:["Inventarisasi dan sumbangan buku antar kelas","Kesepakatan aturan sudut baca bersama murid","Rutinitas 15 menit + jurnal satu kalimat","Pameran kalimat berkesan di akhir bulan dan pemilihan buku favorit kelas"],
+   lampiran:[["Panduan Sudut Baca.pdf","PDF · 430 KB"],["Format Jurnal Kalimat.docx","DOCX · 90 KB"]],
+   sebelum:"6 kali", sebelumLabel:"kunjungan perpustakaan / bulan", sesudah:"19 kali", sesudahLabel:"kunjungan perpustakaan / bulan",
+   dampak:"Murid mulai saling merekomendasikan buku; 12 murid menyelesaikan buku pertamanya dalam satu semester.",
+   refleksi:"Pilihan bebas adalah intinya. Saat saya sempat menentukan buku wajib, antusiasme langsung turun.",
+   tindakLanjut:"Membuka sudut baca untuk jam istirahat dengan petugas pustakawan murid.",
+   replikasi:"Membutuhkan modal awal koleksi buku; bisa dimulai dari sumbangan dan rotasi antar kelas paralel.",
+   tanggal:"28 Okt 2026", asesor:null,
+   bintang:4.5, reviews:[
+     {nama:"Umum — Rina Amelia", status:"Umum", instansi:"Orang tua murid", bintang:5, teks:"Anak saya sekarang minta dibelikan buku. Terima kasih sudah membagikan caranya dengan rinci.", tgl:"5 Nov 2026"}]},
+ { id:5, judul:"Peta Pikiran Kolaboratif untuk Materi Interaksi Sosial", mapel:"IPS", jenjang:"SMP", kelas:"VIII",
+   penulis:"Budi Hartono, S.Pd.", instansi:"SMPN 5 Anak Tuha", cover:"c-ips", ikon:"◎",
+   ringkas:"Materi IPS yang padat istilah dibuat ringan dengan peta pikiran kelompok di kertas plano: tiap kelompok menguasai satu cabang, lalu mengajar kelompok lain.",
+   masalah:"Nilai kuis interaksi sosial rendah; murid menghafal istilah tanpa memahami hubungan antar konsep.",
+   tujuan:"Murid memahami hubungan antar konsep interaksi sosial melalui peta pikiran dan saling mengajar.",
+   tantangan:["Istilah banyak dan mirip-mirip","Murid pasif saat presentasi kelompok lain","Waktu presentasi tidak cukup untuk 8 kelompok"],
+   strategi:"Peta pikiran di kertas plano per kelompok, dilanjutkan gallery walk: juru bicara bergilir menjelaskan ke kelompok tamu.",
+   inovasi:"Gallery walk menggantikan presentasi depan kelas — semua murid bicara, bukan hanya satu perwakilan.",
+   media:"Kertas plano, spidol warna, kartu istilah, lembar pertanyaan tamu.",
+   teknologi:"Foto peta pikiran diarsipkan sebagai bahan belajar bersama sebelum ujian.",
+   langkah:["Pembagian cabang konsep ke 8 kelompok","Penyusunan peta pikiran 25 menit","Gallery walk dua putaran dengan juru bicara bergilir","Kuis kilat individu untuk akuntabilitas"],
+   lampiran:[["LKPD Peta Pikiran.pdf","PDF · 380 KB"],["Kartu Istilah IPS.pdf","PDF · 260 KB"]],
+   sebelum:"58", sebelumLabel:"rata-rata kuis", sesudah:"81", sesudahLabel:"rata-rata kuis",
+   dampak:"Murid yang biasanya pasif kebagian peran juru bicara dan ternyata mampu menjelaskan dengan baik.",
+   refleksi:"Lembar pertanyaan tamu penting agar gallery walk tidak jadi jalan-jalan. Siapkan pertanyaan cadangan.",
+   tindakLanjut:"Menerapkan gallery walk pada materi mobilitas sosial.",
+   replikasi:"Cocok untuk semua materi konseptual yang bisa dipecah menjadi cabang-cabang setara.",
+   tanggal:"20 Okt 2026", asesor:null, bintang:4.3, reviews:[]},
+ { id:6, judul:"Sirkuit Kebugaran 8 Pos dengan Kartu Tantangan Berjenjang", mapel:"PJOK", jenjang:"SMP", kelas:"VII",
+   penulis:"Dedi Kurniawan, S.Pd.", instansi:"SMPN 2 Punggur", cover:"c-pjok", ikon:"➤",
+   ringkas:"Satu guru, 36 murid, lapangan terbatas. Sirkuit 8 pos dengan kartu tantangan 3 level membuat semua murid bergerak terus dan memilih tingkat tantangannya sendiri.",
+   masalah:"Pelajaran PJOK didominasi antre menunggu giliran; waktu aktif bergerak murid kurang dari 40% jam pelajaran.",
+   tujuan:"Meningkatkan waktu aktif bergerak dan kemandirian murid memilih tingkat tantangan kebugaran.",
+   tantangan:["Jumlah murid besar, alat terbatas","Perbedaan kebugaran murid sangat lebar","Keselamatan pada gerakan baru"],
+   strategi:"8 pos sirkuit, tiap pos kartu tantangan level 1–3. Murid mencatat level yang dicapai di kartu kendali pribadi.",
+   inovasi:"Kartu kendali pribadi: murid memantau kemajuannya sendiri dari minggu ke minggu, bukan dibandingkan dengan teman.",
+   media:"Kartu tantangan laminating, kartu kendali, cone dan tali seadanya.",
+   teknologi:"Timer interval di ponsel guru dengan pengeras suara sederhana.",
+   langkah:["Demonstrasi gerakan aman tiap pos","Uji coba satu putaran dengan tempo lambat","Sirkuit utama 2 putaran, 45 detik per pos","Pencatatan kartu kendali dan pendinginan refleksi"],
+   lampiran:[["Kartu Tantangan 8 Pos.pdf","PDF · 720 KB"],["Kartu Kendali Murid.pdf","PDF · 140 KB"]],
+   sebelum:"38%", sebelumLabel:"waktu aktif bergerak", sesudah:"82%", sesudahLabel:"waktu aktif bergerak",
+   dampak:"Antrean hilang; murid berinisiatif menaikkan level tantangannya sendiri di minggu ketiga.",
+   refleksi:"Pos dengan gerakan baru wajib didemonstrasikan dua kali. Kelelahan di putaran kedua perlu diantisipasi dengan pos ringan selingan.",
+   tindakLanjut:"Menambah pos kelincahan dan membuat versi indoor untuk musim hujan.",
+   replikasi:"Alat dapat diganti benda sekitar sekolah; kunci praktik ini ada pada kartu berjenjangnya.",
+   tanggal:"14 Okt 2026", asesor:{skor:[3,4,4,3], oleh:"Dr. Hj. Ratna Sari, M.Pd. — Pengawas Pembina", catatan:"Pengelolaan kelas besar yang efektif. Refleksi jujur soal titik kritis keselamatan. Disarankan menambah data denyut nadi sederhana untuk memperkuat bukti dampak kebugaran.", tgl:"25 Okt 2026"},
+   bintang:4.4, reviews:[
+     {nama:"Andi Saputra, S.Pd.", status:"Guru", instansi:"SMPN 6 Kalirejo", bintang:4, teks:"Kartu kendalinya saya pinjam persis. Murid jadi berlomba dengan dirinya sendiri.", tgl:"30 Okt 2026"}]}
+];
+
+var MY_DRAFTS = [
+ { judul:"Pembelajaran Berdiferensiasi Konten pada Materi Persamaan Linear", langkah:4, dari:6, diubah:"Kemarin, 15.40" }
+];
+
+var state = { user:null, detailId:null, myStars:{}, wizStep:0, wizData:{}, asesorOpen:null, asesorScores:{} };
+
+var WIZ = [
+ { nama:"Identitas & Judul", sub:"Butir 1–2 dari 28 · Identitas praktik baik dan judul", fields:[
+   ["judul","Judul praktik baik","text","cth. Menandai K: Kebiasaan Memeriksa Jawaban Sendiri"],
+   ["mapel","Mata pelajaran","select:Matematika|Bahasa Indonesia|Bahasa Inggris|IPA|IPS|PJOK|Informatika|Lainnya",""],
+   ["jenjangkelas","Jenjang & kelas","text","cth. SMP · Kelas VII"],
+   ["ringkas","Ringkasan singkat (tampil di kartu jelajahi)","textarea","2–3 kalimat: masalahnya apa, solusinya apa, hasilnya apa."]]},
+ { nama:"Masalah & Tujuan", sub:"Butir 3–5 dari 28 · Latar belakang, tujuan, dan tantangan", fields:[
+   ["masalah","Latar belakang permasalahan pembelajaran","textarea","Jelaskan kondisi nyata di kelas Anda, sertakan data bila ada (hasil ulangan, observasi, survei)."],
+   ["tujuan","Tujuan praktik baik","textarea","Apa yang ingin dicapai? Tulis terukur bila memungkinkan."],
+   ["tantangan","Identifikasi tantangan pembelajaran","textarea","Satu tantangan per baris."]]},
+ { nama:"Strategi & Inovasi", sub:"Butir 6–9 dari 28 · Strategi, inovasi, media, dan teknologi", fields:[
+   ["strategi","Strategi dan metode pembelajaran","textarea",""],
+   ["inovasi","Inovasi pembelajaran","textarea","Apa yang baru / berbeda dari cara biasanya?"],
+   ["media","Media dan sumber belajar","textarea",""],
+   ["teknologi","Pemanfaatan teknologi digital","textarea","Tulis 'tidak menggunakan' bila memang tanpa teknologi."]]},
+ { nama:"Pelaksanaan & Perangkat", sub:"Butir 10–14 dari 28 · Langkah pelaksanaan dan perangkat pembelajaran", fields:[
+   ["langkah","Langkah-langkah pelaksanaan pembelajaran","textarea","Satu langkah per baris, berurutan dari awal sampai akhir."],
+   ["lampiran","Unggah perangkat (Modul Ajar/RPP, Bahan Ajar, LKPD, Instrumen Asesmen)","upload",""]]},
+ { nama:"Bukti & Dampak", sub:"Butir 15–21 dari 28 · Dokumentasi, hasil, dan dampak terukur", fields:[
+   ["bukti","Dokumentasi & hasil karya peserta didik","upload","Foto kegiatan, contoh karya murid, atau tautan video pelaksanaan."],
+   ["sebelum","Kondisi sebelum penerapan","text","cth. 31% ketuntasan"],
+   ["sesudah","Kondisi sesudah penerapan","text","cth. 78% ketuntasan"],
+   ["dampak","Dampak terhadap motivasi, keaktifan, dan hasil belajar","textarea",""]]},
+ { nama:"Refleksi & Replikasi", sub:"Butir 22–28 dari 28 · Refleksi, tindak lanjut, testimoni, dan diseminasi", fields:[
+   ["refleksi","Refleksi pelaksanaan & faktor pendukung-penghambat","textarea","Apa yang berhasil, apa yang gagal, dan mengapa?"],
+   ["tindakLanjut","Rencana tindak lanjut","textarea",""],
+   ["replikasi","Potensi replikasi dan adaptasi","textarea","Siapa yang bisa meniru praktik ini, dan apa syaratnya?"],
+   ["testimoni","Testimoni / bukti diseminasi / tautan portofolio","textarea","Testimoni murid atau rekan guru, bukti pernah dibagikan (MGMP, seminar), atau tautan publikasi."]]}
+];
+var ASPEK = ["Kejelasan masalah & tujuan","Strategi & inovasi","Bukti & dampak","Potensi replikasi"];
+
+/* ==================== HELPERS ==================== */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function initials(n){return n.split(" ").filter(Boolean).slice(0,2).map(function(w){return w[0]}).join("").toUpperCase()}
+function starsHTML(v){var f=Math.round(v);var s="";for(var i=1;i<=5;i++)s+= i<=f?"★":"☆";return s}
+function avgStars(p){ if(!p.reviews.length) return null; return p.reviews.reduce(function(a,r){return a+r.bintang},0)/p.reviews.length }
+function asesorAvg(p){ if(!p.asesor) return null; return p.asesor.skor.reduce(function(a,b){return a+b},0)/p.asesor.skor.length }
+function toast(msg){ var t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove("show")},3400) }
+
+/* ==================== NAV ==================== */
+function go(view){
+  ["home","detail","create","dashboard","asesor"].forEach(function(v){ $("view-"+v).classList.toggle("hidden", v!==view) });
+  document.querySelectorAll("#mainnav button").forEach(function(b){ b.classList.toggle("active", b.dataset.nav===view) });
+  window.scrollTo({top:0});
+  if(view==="dashboard") renderDashboard();
+  if(view==="asesor") renderAsesor();
+}
+function renderAuth(){
+  var a=$("autharea");
+  if(state.user){
+    a.innerHTML='<button class="userchip" onclick="logout()" title="Klik untuk keluar"><span class="avatar">'+initials(state.user.nama)+'</span>'+esc(state.user.nama.split(",")[0])+'</button>';
+  } else {
+    a.innerHTML='<button class="btn btn-gold btn-sm" onclick="openAuth()">Masuk / Daftar</button>';
+  }
+}
+function openAuth(){$("auth-overlay").classList.remove("hidden")}
+function closeAuth(){$("auth-overlay").classList.add("hidden")}
+function authTab(t){
+  $("tab-masuk").classList.toggle("on", t==="masuk");
+  $("tab-daftar").classList.toggle("on", t==="daftar");
+  $("form-masuk").classList.toggle("hidden", t!=="masuk");
+  $("form-daftar").classList.toggle("hidden", t!=="daftar");
+  $("auth-title").textContent = t==="masuk" ? "Masuk ke GezyPraktik" : "Daftar akun GezyPraktik";
+}
+function doLogin(e){ e.preventDefault();
+  var email=$("li-email").value.trim();
+  var nama=email.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,function(c){return c.toUpperCase()});
+  state.user={nama:nama, email:email, status:"Guru", instansi:"—"};
+  finishAuth("Selamat datang kembali, "+nama+".");
+}
+function doRegister(e){ e.preventDefault();
+  state.user={ nama:$("rg-nama").value.trim(), email:$("rg-email").value.trim(), nip:$("rg-nip").value.trim(),
+    wa:$("rg-wa").value.trim(), instansi:$("rg-instansi").value.trim(), status:$("rg-status").value };
+  finishAuth("Akun terdaftar. Selamat datang, "+state.user.nama+".");
+}
+function finishAuth(msg){ closeAuth(); renderAuth(); toast(msg); if(!$("view-detail").classList.contains("hidden")) openDetail(state.detailId,true); if(!$("view-dashboard").classList.contains("hidden")) renderDashboard(); }
+function logout(){ state.user=null; renderAuth(); toast("Anda sudah keluar."); if(!$("view-dashboard").classList.contains("hidden")) renderDashboard(); if(!$("view-detail").classList.contains("hidden")) openDetail(state.detailId,true); }
+function requireLogin(msg){ if(state.user) return true; openAuth(); toast(msg||"Masuk dulu untuk melanjutkan."); return false }
+
+/* ==================== HOME / CARDS ==================== */
+function fillMapelFilter(){
+  var set={}; PRACTICES.forEach(function(p){set[p.mapel]=1});
+  var sel=$("f-mapel"); var cur=sel.value;
+  sel.innerHTML='<option value="">Semua mata pelajaran</option>'+Object.keys(set).sort().map(function(m){return '<option'+(m===cur?" selected":"")+'>'+m+'</option>'}).join("");
+}
+function filtered(){
+  var q=($("search").value||"").toLowerCase(), m=$("f-mapel").value, j=$("f-jenjang").value, s=$("f-sort").value;
+  var list=PRACTICES.filter(function(p){
+    return (!m||p.mapel===m)&&(!j||p.jenjang===j)&&(!q||(p.judul+" "+p.ringkas+" "+p.mapel+" "+p.penulis).toLowerCase().indexOf(q)>-1);
+  });
+  if(s==="bintang") list.sort(function(a,b){return (avgStars(b)||0)-(avgStars(a)||0)});
+  if(s==="asesor") list.sort(function(a,b){return (asesorAvg(b)||0)-(asesorAvg(a)||0)});
+  return list;
+}
+function renderCards(){
+  fillMapelFilter();
+  var list=filtered();
+  $("card-count").textContent=list.length+" praktik";
+  $("cards-empty").classList.toggle("hidden", list.length>0);
+  $("cards").innerHTML=list.map(function(p){
+    var av=avgStars(p), as=asesorAvg(p);
+    return '<article class="card">'
+    +'<div class="cover '+p.cover+'"><span class="subj">'+esc(p.mapel)+' · '+esc(p.jenjang)+' '+esc(p.kelas)+'</span><span class="big">'+p.ikon+'</span><h3>'+esc(p.judul)+'</h3></div>'
+    +'<div class="card-body">'
+    +'<div class="author"><span class="avatar">'+initials(p.penulis)+'</span><span><b>'+esc(p.penulis)+'</b><span>'+esc(p.instansi)+'</span></span><span style="margin-left:auto">'+(p.asesor?'<span class="badge b-sudah">✓ Dinilai asesor</span>':'<span class="badge b-nilai">Menunggu penilaian</span>')+'</span></div>'
+    +'<p class="ex">'+esc(p.ringkas)+'</p>'
+    +'<div class="card-meta">'+(av?'<span class="stars">'+starsHTML(av)+' <span class="n">'+av.toFixed(1)+'</span></span>':'<span>Belum ada bintang</span>')+'<span>'+p.reviews.length+' ulasan</span>'
+    +(as?'<span>Asesor <b style="color:var(--ink)">'+as.toFixed(1)+'/4</b></span>':'')
+    +'<span style="margin-left:auto">'+esc(p.tanggal)+'</span></div>'
+    +'<button class="btn btn-navy btn-sm open" onclick="openDetail('+p.id+')">Baca praktik →</button>'
+    +'</div></article>';
+  }).join("");
+  $("st-total").textContent=PRACTICES.length;
+  $("st-guru").textContent=new Set(PRACTICES.map(function(p){return p.penulis})).size;
+  $("st-nilai").textContent=PRACTICES.filter(function(p){return p.asesor}).length;
+  $("st-ulasan").textContent=PRACTICES.reduce(function(a,p){return a+p.reviews.length},0);
+}
+
+/* ==================== DETAIL ==================== */
+function openDetail(id, keepScroll){
+  var p=PRACTICES.filter(function(x){return x.id===id})[0]; if(!p) return;
+  state.detailId=id;
+  ["home","create","dashboard","asesor"].forEach(function(v){$("view-"+v).classList.add("hidden")});
+  $("view-detail").classList.remove("hidden");
+  document.querySelectorAll("#mainnav button").forEach(function(b){b.classList.remove("active")});
+  if(!keepScroll) window.scrollTo({top:0});
+  var av=avgStars(p), as=asesorAvg(p);
+  var myStar=state.myStars[id]||0;
+
+  var sections=[
+    ["Masalah & Tujuan","<p><b>Latar belakang.</b> "+esc(p.masalah)+"</p><p><b>Tujuan.</b> "+esc(p.tujuan)+"</p><p><b>Tantangan yang dihadapi:</b></p><ul>"+p.tantangan.map(function(t){return "<li>"+esc(t)+"</li>"}).join("")+"</ul>"],
+    ["Strategi & Inovasi","<p><b>Strategi.</b> "+esc(p.strategi)+"</p><p><b>Inovasi.</b> "+esc(p.inovasi)+"</p><p><b>Media & sumber belajar.</b> "+esc(p.media)+"</p><p><b>Teknologi digital.</b> "+esc(p.teknologi)+"</p>"],
+    ["Pelaksanaan","<p><b>Langkah-langkah:</b></p><ul>"+p.langkah.map(function(t){return "<li>"+esc(t)+"</li>"}).join("")+"</ul>"],
+    ["Bukti & Dampak","<div class='ba'><div class='before'><b>Sebelum</b><span class='pct'>"+esc(p.sebelum)+"</span>"+esc(p.sebelumLabel)+"</div><div class='after'><b>Sesudah</b><span class='pct'>"+esc(p.sesudah)+"</span>"+esc(p.sesudahLabel)+"</div></div><p>"+esc(p.dampak)+"</p>"],
+    ["Refleksi & Replikasi","<p><b>Refleksi.</b> "+esc(p.refleksi)+"</p><p><b>Tindak lanjut.</b> "+esc(p.tindakLanjut)+"</p><p><b>Potensi replikasi.</b> "+esc(p.replikasi)+"</p>"]
+  ];
+
+  var asesorBox = p.asesor
+    ? '<div class="panel"><h3>Penilaian Asesor</h3><div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><span class="score-big">'+as.toFixed(1)+'</span><span style="color:var(--muted);font-size:13px">dari 4,0<br>rubrik 4 aspek</span></div>'
+      + ASPEK.map(function(a,i){return '<div class="rubric-row"><span>'+a+'</span><b>'+p.asesor.skor[i]+' / 4</b></div>'}).join("")
+      + '<p style="margin-top:10px;color:var(--ink)">“'+esc(p.asesor.catatan)+'”</p><p>— '+esc(p.asesor.oleh)+'<br>'+esc(p.asesor.tgl)+'</p></div>'
+    : '<div class="panel"><h3>Penilaian Asesor</h3><p>Praktik ini <b style="color:var(--amber)">sudah terbit dan sedang menunggu penilaian asesor</b>. Nilai dan umpan balik asesor akan tampil di sini begitu penilaian selesai.</p></div>';
+
+  var reviewForm = state.user
+    ? '<div class="fgroup"><label class="fl">Bintang dari Anda</label><div class="star-input" id="star-input">'
+      +[1,2,3,4,5].map(function(n){return '<button type="button" data-n="'+n+'" onclick="setStar('+n+')" aria-label="'+n+' bintang">★</button>'}).join("")+'</div></div>'
+      +'<div class="fgroup"><label class="fl" for="rv-teks">Ulasan Anda</label><textarea class="ta" id="rv-teks" rows="3" placeholder="Apa yang bermanfaat? Sudah dicoba di kelas Anda? Tulis di sini…"></textarea></div>'
+      +'<button class="btn btn-gold" onclick="submitReview('+p.id+')">Kirim ulasan</button>'
+    : '<div class="notice gold" style="margin:0">Untuk memberi bintang dan ulasan, silakan masuk dengan email Anda.</div><button class="btn btn-navy" style="width:100%" onclick="openAuth()">Masuk / Daftar</button>';
+
+  $("detail-body").innerHTML =
+    '<div class="detail-head"><span class="badge b-terbit">● Terbit · '+esc(p.tanggal)+'</span> <span class="badge b-draf">Kategori Guru</span>'
+    +'<h1>'+esc(p.judul)+'</h1><p class="excerpt">'+esc(p.ringkas)+'</p>'
+    +'<div class="author"><span class="avatar lg">'+initials(p.penulis)+'</span><span><b style="font-size:15.5px">'+esc(p.penulis)+'</b><span style="display:block">'+esc(p.instansi)+' · '+esc(p.mapel)+' · '+esc(p.jenjang)+' Kelas '+esc(p.kelas)+'</span></span></div></div>'
+    +'<div class="detail-grid"><div class="article">'
+    + sections.map(function(s,i){return '<section><h2><span class="no">'+(i+1)+'</span>'+s[0]+'</h2>'+s[1]+'</section>'}).join("")
+    +'<section><h2><span class="no">6</span>Perangkat & Lampiran</h2>'
+    + p.lampiran.map(function(l){return '<div class="attach"><span class="ic">📄</span><span><a href="#" onclick="event.preventDefault();toast(\'Di prototipe ini lampiran belum bisa diunduh.\')">'+esc(l[0])+'</a><small>'+esc(l[1])+'</small></span></div>'}).join("")
+    +'</section></div>'
+    +'<aside class="side">'
+    +'<div class="panel"><h3>Bintang Komunitas</h3>'+(av?'<div style="display:flex;align-items:center;gap:12px"><span class="score-big">'+av.toFixed(1)+'</span><span><span class="stars" style="font-size:17px">'+starsHTML(av)+'</span><br><span style="color:var(--muted);font-size:13px">dari '+p.reviews.length+' ulasan pengunjung</span></span></div>':'<p style="margin:0">Belum ada bintang — praktik ini belum menerima ulasan pengunjung.</p>')+'</div>'
+    + asesorBox
+    +'<div class="panel"><h3>Beri bintang & ulasan</h3>'+reviewForm+'</div>'
+    +'<div class="panel"><h3>Ulasan pengunjung ('+p.reviews.length+')</h3><div id="review-list">'
+    + (p.reviews.length? p.reviews.map(reviewHTML).join("") : '<p>Belum ada ulasan. Jadilah yang pertama mengapresiasi praktik ini.</p>')
+    +'</div></div>'
+    +'</aside></div>';
+  paintStars();
+}
+function reviewHTML(r){
+  return '<div class="review"><div class="who"><span class="avatar">'+initials(r.nama)+'</span><span><b>'+esc(r.nama)+'</b><br><span>'+esc(r.status)+' · '+esc(r.instansi)+' · '+esc(r.tgl)+'</span></span><span class="stars" style="margin-left:auto">'+starsHTML(r.bintang)+'</span></div><p>'+esc(r.teks)+'</p></div>';
+}
+function setStar(n){ state.myStars[state.detailId]=n; paintStars(); }
+function paintStars(){
+  var box=$("star-input"); if(!box) return; var v=state.myStars[state.detailId]||0;
+  box.querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", +b.dataset.n<=v) });
+}
+function submitReview(pid){
+  var v=state.myStars[pid]||0, teks=$("rv-teks").value.trim();
+  if(!v){ toast("Pilih bintang dulu sebelum mengirim ulasan."); return }
+  if(!teks){ toast("Tulis ulasan singkat dulu."); return }
+  var p=PRACTICES.filter(function(x){return x.id===pid})[0];
+  p.reviews.unshift({nama:state.user.nama, status:state.user.status||"Guru", instansi:state.user.instansi||"—", bintang:v, teks:teks, tgl:"Baru saja"});
+  toast("Terima kasih! Ulasan Anda sudah terbit.");
+  openDetail(pid,true); renderCards();
+}
+
+/* ==================== WIZARD ==================== */
+function startCreate(){
+  if(!requireLogin("Masuk dulu untuk menulis praktik baik.")) return;
+  state.wizStep=0; go("create"); renderWizard();
+}
+function renderWizard(){
+  var s=state.wizStep;
+  $("wiz-progress").style.width=Math.round(((s+1)/WIZ.length)*100)+"%";
+  $("wiz-steps").innerHTML=WIZ.map(function(w,i){
+    return '<div class="stepdot '+(i<s?"done":i===s?"now":"")+'"><span class="ball">'+(i<s?"✓":i+1)+'</span><span>'+w.nama+'</span></div>';
+  }).join("");
+  var w=WIZ[s];
+  var fields=w.fields.map(function(f){
+    var key=f[0], label=f[1], type=f[2], ph=f[3], val=esc(state.wizData[key]||"");
+    if(type==="upload") return '<div class="fgroup"><label class="fl">'+label+'</label><div class="upload">📎 <b>Tarik berkas ke sini</b> atau klik untuk memilih<br><span style="font-size:12.5px">PDF / DOCX / JPG · maks 5 MB per berkas · atau tempel tautan YouTube/Drive</span></div></div>';
+    if(type.indexOf("select:")===0){
+      var opts=type.slice(7).split("|");
+      return '<div class="fgroup"><label class="fl" for="wz-'+key+'">'+label+'</label><select class="in" id="wz-'+key+'" onchange="wizSet(\''+key+'\',this.value)"><option value="">— Pilih —</option>'+opts.map(function(o){return '<option'+(state.wizData[key]===o?" selected":"")+'>'+o+'</option>'}).join("")+'</select></div>';
+    }
+    if(type==="textarea") return '<div class="fgroup"><label class="fl" for="wz-'+key+'">'+label+'</label><textarea class="ta" id="wz-'+key+'" rows="4" placeholder="'+esc(ph)+'" oninput="wizSet(\''+key+'\',this.value)">'+val+'</textarea></div>';
+    return '<div class="fgroup"><label class="fl" for="wz-'+key+'">'+label+'</label><input class="in" id="wz-'+key+'" placeholder="'+esc(ph)+'" value="'+val+'" oninput="wizSet(\''+key+'\',this.value)"></div>';
+  }).join("");
+  var last=s===WIZ.length-1;
+  $("wiz-body").innerHTML='<h2>Langkah '+(s+1)+' dari 6 — '+w.nama+'</h2><p class="sub">'+w.sub+'</p>'+fields
+    +(last?'<div class="notice blue">Menekan <b>Terbitkan sekarang</b> akan langsung menerbitkan praktik ini ke halaman Jelajahi. Asesor akan menilai setelahnya — nilai dan umpan baliknya tampil menyusul di halaman praktik Anda.</div>':"")
+    +'<div class="wiz-nav">'
+    +(s>0?'<button class="btn btn-ghost" onclick="wizMove(-1)">← Kembali</button>':"")
+    +'<span class="sp"></span><button class="btn btn-ghost" onclick="saveDraft()">Simpan draf</button>'
+    +(last?'<button class="btn btn-gold" onclick="publishPractice()">Terbitkan sekarang →</button>':'<button class="btn btn-navy" onclick="wizMove(1)">Lanjut →</button>')
+    +'</div>';
+}
+function wizSet(k,v){ state.wizData[k]=v }
+function wizMove(d){ state.wizStep=Math.min(WIZ.length-1, Math.max(0, state.wizStep+d)); renderWizard(); window.scrollTo({top:0}) }
+function saveDraft(){
+  var judul=state.wizData.judul||"Praktik tanpa judul";
+  var ex=MY_DRAFTS.filter(function(d){return d.judul===judul})[0];
+  if(ex){ ex.langkah=state.wizStep+1; ex.diubah="Baru saja"; }
+  else MY_DRAFTS.unshift({judul:judul, langkah:state.wizStep+1, dari:6, diubah:"Baru saja"});
+  toast("Draf tersimpan. Anda bisa melanjutkannya dari menu Praktik Saya.");
+}
+function publishPractice(){
+  var d=state.wizData;
+  if(!d.judul){ toast("Judul praktik masih kosong — isi di Langkah 1 dulu."); state.wizStep=0; renderWizard(); return }
+  var lines=function(t){ return (t||"").split("\n").map(function(x){return x.trim()}).filter(Boolean) };
+  var np={ id:Date.now(), judul:d.judul, mapel:d.mapel||"Matematika", jenjang:"SMP", kelas:"VII",
+    penulis:state.user.nama, instansi:state.user.instansi||"—", cover:"c-mat", ikon:"✎",
+    ringkas:d.ringkas||"Praktik baik yang baru diterbitkan dari wizard GezyPraktik.",
+    masalah:d.masalah||"—", tujuan:d.tujuan||"—", tantangan:lines(d.tantangan).length?lines(d.tantangan):["—"],
+    strategi:d.strategi||"—", inovasi:d.inovasi||"—", media:d.media||"—", teknologi:d.teknologi||"—",
+    langkah:lines(d.langkah).length?lines(d.langkah):["—"],
+    lampiran:[["Perangkat pembelajaran (diunggah penulis)","Berkas penulis"]],
+    sebelum:d.sebelum||"—", sebelumLabel:"kondisi awal", sesudah:d.sesudah||"—", sesudahLabel:"kondisi sesudah",
+    dampak:d.dampak||"—", refleksi:d.refleksi||"—", tindakLanjut:d.tindakLanjut||"—", replikasi:d.replikasi||"—",
+    tanggal:"Baru saja", asesor:null, bintang:0, reviews:[] };
+  PRACTICES.unshift(np);
+  MY_DRAFTS=MY_DRAFTS.filter(function(x){return x.judul!==d.judul});
+  state.wizData={};
+  renderCards();
+  toast("Selamat! Praktik Anda sudah terbit dan bisa dibagikan.");
+  openDetail(np.id);
+}
+
+/* ==================== DASHBOARD ==================== */
+function renderDashboard(){
+  var body=$("dash-body");
+  if(!state.user){
+    body.innerHTML='<div class="emptybox"><h3 style="color:var(--ink);margin-bottom:6px">Anda belum masuk</h3>Masuk dengan email untuk melihat draf dan praktik yang sudah Anda terbitkan.<br><br><button class="btn btn-gold" onclick="openAuth()">Masuk / Daftar</button></div>';
+    return;
+  }
+  var mine=PRACTICES.filter(function(p){return p.penulis===state.user.nama});
+  var statHtml='<div class="statgrid"><div class="stat"><b>'+mine.length+'</b><span>Praktik terbit</span></div><div class="stat"><b>'+MY_DRAFTS.length+'</b><span>Draf belum selesai</span></div><div class="stat"><b>'+mine.filter(function(p){return p.asesor}).length+'</b><span>Sudah dinilai asesor</span></div><div class="stat"><b>'+mine.reduce(function(a,p){return a+p.reviews.length},0)+'</b><span>Ulasan diterima</span></div></div>';
+  var rows="";
+  MY_DRAFTS.forEach(function(d){
+    rows+='<div class="lrow"><span class="badge b-draf">DRAF</span><div class="grow"><h3>'+esc(d.judul)+'</h3><p>Baru sampai langkah '+d.langkah+' dari '+d.dari+' · terakhir diubah '+esc(d.diubah)+'</p><div class="progressline" style="margin-top:8px;max-width:340px"><i style="width:'+Math.round(d.langkah/d.dari*100)+'%"></i></div></div><button class="btn btn-navy btn-sm" onclick="resumeDraft()">Lanjutkan</button></div>';
+  });
+  mine.forEach(function(p){
+    var as=asesorAvg(p);
+    var avs=avgStars(p);
+    rows+='<div class="lrow"><span class="badge b-terbit">TERBIT</span><div class="grow"><h3>'+esc(p.judul)+'</h3><p>'+esc(p.tanggal)+' · '+(avs?'<span class="stars">'+starsHTML(avs)+'</span> '+avs.toFixed(1):'Belum ada bintang')+' · '+p.reviews.length+' ulasan'+(as?' · Nilai asesor <b>'+as.toFixed(1)+'/4</b>':' · Menunggu penilaian asesor')+'</p></div><button class="btn btn-ghost btn-sm" onclick="toast(\'Tautan halaman praktik tersalin (contoh prototipe).\')">Salin tautan</button><button class="btn btn-navy btn-sm" onclick="openDetail('+p.id+')">Lihat</button></div>';
+  });
+  if(!rows) rows='<div class="lrow"><div class="grow"><h3>Belum ada praktik</h3><p>Mulai tulis praktik baik pertama Anda lewat panduan 6 langkah.</p></div><button class="btn btn-gold btn-sm" onclick="startCreate()">Mulai menulis</button></div>';
+  body.innerHTML=statHtml+'<div class="listcard">'+rows+'</div>'
+    +'<div class="panel" style="margin-top:16px"><h3>Profil penulis Anda</h3><div class="author"><span class="avatar lg">'+initials(state.user.nama)+'</span><span><b style="font-size:15.5px">'+esc(state.user.nama)+'</b><span style="display:block">'+esc(state.user.status||"")+(state.user.nip?" · NIP "+esc(state.user.nip):"")+'<br>'+esc(state.user.instansi||"")+(state.user.wa?" · WA "+esc(state.user.wa):"")+'</span></span></div><p style="margin-top:10px">Halaman profil publik Anda: <b>praktik.gezytech.web.id/p/'+esc(state.user.nama.toLowerCase().replace(/[^a-z]+/g,"-"))+'</b> — tautan ini yang dibagikan ke komunitas.</p></div>';
+}
+function resumeDraft(){ state.wizStep=3; go("create"); renderWizard(); toast("Draf dibuka di langkah terakhir yang Anda isi."); }
+
+/* ==================== ASESOR ==================== */
+function renderAsesor(){
+  var queue=PRACTICES.filter(function(p){return !p.asesor});
+  var done=PRACTICES.filter(function(p){return p.asesor});
+  $("as-antre").textContent=queue.length;
+  $("as-selesai").textContent=done.length;
+  $("as-rata").textContent=done.length? (done.reduce(function(a,p){return a+asesorAvg(p)},0)/done.length).toFixed(1)+" / 4" : "–";
+  $("asesor-list").innerHTML =
+    queue.map(function(p){ return asesorRow(p,false) }).join("")
+    +(done.length? '<div class="lrow" style="background:var(--surface2)"><div class="grow"><p style="font-weight:800;color:var(--ink)">Sudah dinilai</p></div></div>'+done.map(function(p){return asesorRow(p,true)}).join("") : "");
+  if(state.asesorOpen) renderAsesorPanel();
+}
+function asesorRow(p, done){
+  var as=asesorAvg(p);
+  return '<div class="lrow"><span class="badge '+(done?"b-sudah":"b-nilai")+'">'+(done?"✓ DINILAI":"MENUNGGU")+'</span><div class="grow"><h3>'+esc(p.judul)+'</h3><p>'+esc(p.penulis)+' · '+esc(p.instansi)+' · terbit '+esc(p.tanggal)+(done?' · nilai Anda <b>'+as.toFixed(1)+'/4</b>':'')+'</p></div><button class="btn btn-ghost btn-sm" onclick="openDetail('+p.id+')">Baca</button>'+(done?"":'<button class="btn btn-navy btn-sm" onclick="openAsesorForm('+p.id+')">Nilai sekarang</button>')+'</div>';
+}
+function openAsesorForm(id){
+  state.asesorOpen=id; state.asesorScores={};
+  ASPEK.forEach(function(_,i){ state.asesorScores[i]=3 });
+  renderAsesorPanel();
+  setTimeout(function(){ var el=$("asesor-panel"); if(el) el.scrollIntoView({behavior:"smooth"}) },60);
+}
+function renderAsesorPanel(){
+  var p=PRACTICES.filter(function(x){return x.id===state.asesorOpen})[0];
+  var box=$("asesor-panel"); if(!p){ box.innerHTML=""; return }
+  box.innerHTML='<div class="wiz-card" style="margin-top:18px"><h2>Menilai: '+esc(p.judul)+'</h2><p class="sub">Oleh '+esc(p.penulis)+' · '+esc(p.instansi)+' · Geser untuk memberi skor 1–4 per aspek, lalu tulis umpan balik.</p>'
+  + ASPEK.map(function(a,i){
+      return '<div class="fgroup"><label class="fl">'+a+' — <span id="asv-'+i+'" style="color:var(--teal)">3 / 4</span></label><input type="range" min="1" max="4" step="1" value="3" oninput="state.asesorScores['+i+']=+this.value;document.getElementById(\'asv-'+i+'\').textContent=this.value+\' / 4\'" aria-label="'+a+'"></div>';
+    }).join("")
+  +'<div class="fgroup"><label class="fl" for="as-catatan">Umpan balik tertulis untuk penulis</label><textarea class="ta" id="as-catatan" rows="3" placeholder="Tuliskan kekuatan praktik ini dan satu saran perbaikan yang paling penting…"></textarea></div>'
+  +'<div class="wiz-nav"><button class="btn btn-ghost" onclick="state.asesorOpen=null;renderAsesorPanel()">Batal</button><span class="sp"></span><button class="btn btn-gold" onclick="submitAsesor('+p.id+')">Simpan penilaian</button></div></div>';
+}
+function submitAsesor(id){
+  var cat=($("as-catatan").value||"").trim();
+  if(!cat){ toast("Tulis umpan balik dulu — itu bagian paling berharga bagi penulis."); return }
+  var p=PRACTICES.filter(function(x){return x.id===id})[0];
+  p.asesor={ skor:ASPEK.map(function(_,i){return state.asesorScores[i]||3}), oleh:"Anda (Asesor)", catatan:cat, tgl:"Baru saja" };
+  state.asesorOpen=null;
+  toast("Penilaian tersimpan dan sudah tampil di halaman praktik.");
+  renderAsesor(); renderCards();
+}
+
+/* init */
+renderAuth(); renderCards();
+</script>
+</body>
+</html>
