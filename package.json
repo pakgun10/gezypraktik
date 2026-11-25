@@ -1,0 +1,1 @@
+{"dependencies":{"hono":"^4.7.0","mysql2":"^3.14.0"},"description":"GezyPraktik — aplikasi berbagi praktik baik guru. Bun + Hono + MariaDB.","name":"gezypraktik","private":true,"scripts":{"migrate":"bun scripts/migrate.ts","seed":"bun seed.ts","setup-db":"bun scripts/setup-db.ts","start":"bun server.ts","test":"bun test"},"version":"1.0.0"}
